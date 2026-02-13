@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Palangaa</title>
+    <style>
+        body {
+            /* Deep Rose/Love themed background */
+            background: radial-gradient(circle, #2b001e 0%, #000000 100%);
+            color: #555;
+            font-size: 1.1em;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            overflow: hidden;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        * { box-sizing: border-box; }
+
+        /* --- Floating Elements Style --- */
+        .floating-item {
+            position: absolute;
+            bottom: -50px;
+            pointer-events: none;
+            z-index: 1;
+            animation: floatUp linear forwards;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- Central Card Styles --- */
+        .main-container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 350px;
+            width: 90%;
+            animation: fadeIn 2s ease-in;
+        }
+
+        .rose-border {
+            padding: 15px;
+            /* Purple Flower Border Image */
+            border: 20px solid transparent;
+            border-image: url('https://www.transparentpng.com/download/floral/purple-flowers-border-png-free-download-26.png') 30 round;
+            background-clip: padding-box;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: inline-block;
+            line-height: 0;
+            filter: drop-shadow(0 0 15px #800080);
+        }
+
+        .center-photo {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .message-box {
+            margin-top: 25px;
+            padding: 15px;
+            background: rgba(43, 0, 30, 0.8);
+            border: 2px solid #da70d6;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(218, 112, 214, 0.4);
+        }
+
+        .message-text {
+            color: #ffb7ff;
+            font-family: 'Georgia', serif;
+            font-size: 1.5em;
+            margin: 0;
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        /* --- Spinning CD Music Control --- */
+        .music-player-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            cursor: pointer;
+        }
+
+        .cd-disk {
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #333 20%, #111 21%, #333 25%, #111 60%, #4b0082 100%);
+            border-radius: 50%;
+            border: 2px solid #fff;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .cd-disk::after {
+            content: "";
+            width: 15px;
+            height: 15px;
+            background: #2b001e;
+            border-radius: 50%;
+            border: 1px solid #666;
+        }
+
+        .spinning {
+            animation: spin 3s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="rose-border">
+            <img src="a3f48146-d010-4c84-b346-0de67edbe197.jfif" alt="Special Photo" class="center-photo">
+        </div>
+        <div class="message-box">
+            <h1 class="message-text">Happy Valentines Palangaa Nakoo!!</h1>
+        </div>
+    </div>
+
+    <div class="music-player-container" onclick="toggleMusic()">
+        <div id="cd" class="cd-disk"></div>
+        <p style="color: white; font-size: 10px; text-align: center; margin-top: 5px;">TAP DISK</p>
+    </div>
+
+    <audio id="bg-music" loop>
+        <source src="Be With You.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Background Floating Items (Flowers, Hearts, Emojis)
+        function createFloatingItem() {
+            const items = ['🌸', '💜', '🌹', '✨', '💖', '💐'];
+            const item = document.createElement('div');
+            item.className = 'floating-item';
+            item.innerHTML = items[Math.floor(Math.random() * items.length)];
+            
+            const size = Math.random() * (40 - 15) + 15;
+            item.style.fontSize = size + 'px';
+            item.style.left = Math.random() * 100 + 'vw';
+            item.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            
+            document.body.appendChild(item);
+            
+            setTimeout(() => {
+                item.remove();
+            }, 10000);
+        }
+
+        setInterval(createFloatingItem, 300);
+
+        // Music Toggle Logic
+        window.toggleMusic = function() {
+            var music = document.getElementById("bg-music");
+            var cd = document.getElementById("cd");
+            if (music.paused) {
+                music.play();
+                cd.classList.add("spinning");
+            } else {
+                music.pause();
+                cd.classList.remove("spinning");
+            }
+        };
+
+        // Reuse your original heart-click logic if you'd like, 
+        // but the floating items above provide the requested background effect.
+    </script>
+</body>
+</html>
